@@ -28,7 +28,7 @@ export default {
   
   .calculator_header .solar_cells {
     height: 40px;
-    width: 150px;
+    width: 50%;
     background-color: #162a2a;
     float: right;
     margin-top: 10px;

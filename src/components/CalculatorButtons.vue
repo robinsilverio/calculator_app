@@ -1,7 +1,6 @@
 <template>
     <div class="calculator_buttons">
         <button class="buttons" v-for="button in buttons" :key="button">{{ button }}</button>
-        <button class="buttons" v-for="button in lowerUnEvenButtons" :key="button">{{ button }}</button>
     </div>
 </template>
 <script>
@@ -13,9 +12,9 @@ export default {
                 'OFF', 'MRC', 'M-', 'M+', '÷', 
                 '%', 7, 8, 9, 'x',
                 '√', 4, 5, 6, '-',
-                'CE', 1, 2, 3, '+'
-            ],
-            lowerUnEvenButtons: ['AC', 0, '.', '=']
+                'CE', 1, 2, 3, '+',
+                'AC', 0, '.', '='
+            ]
         }
     }
 }

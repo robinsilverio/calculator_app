@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
     <Header />
-    <CalculatorScreen />
+    <CalculatorScreen result="0" />
     <CalculatorButtons />
   </div>
 </template>

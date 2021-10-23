@@ -1,6 +1,11 @@
 <template>
-    <div class="calculator_buttons">
-        <button class="buttons" v-for="button in buttons" :key="button">{{ button }}</button>
+    <div class="calculator_main">
+        <div class="calculator_buttons">
+            <button v-for="button in buttons.slice(0, 20)" :key="button">{{ button }}</button>
+            <div class="last_row_buttons">
+                <button v-for="button in buttons.slice(20)" :key="button">{{ button }}</button>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -20,7 +25,7 @@ export default {
 }
 </script>
 <style scoped>
-.calculator_buttons { 
+.calculator_main { 
     margin-top: 10px;
 }
 .calculator_buttons {
@@ -29,8 +34,12 @@ export default {
     justify-content: space-evenly;
     padding: 5px;
 }
-.calculator_buttons .buttons {
-    flex: 1 20%;
+.calculator_buttons .last_row_buttons {
+    display: flex;
+    flex: auto;
+}
+.calculator_buttons button {
+    flex: 0 20%;
     padding: 15px;
 }
 </style>

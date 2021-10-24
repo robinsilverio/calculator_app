@@ -1,9 +1,19 @@
 <template>
     <div class="calculator_main">
         <div class="calculator_buttons">
-            <button v-for="button in buttons.slice(0, 20)" :class="button.className" :key="button.text">{{ button.text }}</button>
+            <button 
+                v-for="button in buttons.slice(0, 20)" 
+                v-on:click="pressButton($event)" 
+                :class="button.className" 
+                :key="button.text" 
+                :value="button.text">{{ button.text }}</button>
             <div class="last_row_buttons">
-                <button v-for="button in buttons.slice(20)" :class="button.className" :key="button.text">{{ button.text }}</button>
+                <button 
+                    v-for="button in buttons.slice(20)" 
+                    v-on:click="pressButton($event)" 
+                    :class="button.className" 
+                    :key="button.text" 
+                    :value="button.text">{{ button.text }}</button>
             </div>
         </div>
     </div>
@@ -15,6 +25,13 @@ export default {
     data() {
         return {
             buttons: buttonData
+        }
+    },
+    methods: {
+        pressButton(e) {
+            e.preventDefault();
+            console.log(e.target.value);
+            // Work in progress...
         }
     }
 }

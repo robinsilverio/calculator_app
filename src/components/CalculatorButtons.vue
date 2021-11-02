@@ -33,19 +33,28 @@ export default {
     methods: {
         pressButton(e) {
             e.preventDefault();
-            if(e.target.__vnode.props.class === 'btn_regular numeric') {
-                this.$store.dispatch('addNumberToNumberList', e.target.value)
-            } else if (e.target.__vnode.props.class === 'btn_clear') {
-                this.$store.dispatch('clearResult')
-            } else if (e.target.__vnode.props.class === 'btn_off') {
-                this.$store.dispatch('toggleCalculatorStatus', true);
-            } else if (e.target.__vnode.props.class === 'btn_clear btn_on') {
-                if (this.$store.getters.obtainResult.isEmpty) {
-                    this.$store.dispatch('clearResult');
-                } else {
-                    this.$store.dispatch('toggleCalculatorStatus', false)
+
+            let objectFunctions = {
+                'btn_regular numeric' : function () {
+                    store.dispatch('addNumberToNumberList', e.target.value);
+                },
+                'btn_clear': function () {
+                    store.dispatch('clearResult')                    
+                },
+                'btn_off': function () {
+                    store.dispatch('toggleCalculatorStatus', true);
+                },
+                'btn_clear btn_on': function () {
+                    if (this.$store.getters.obtainResult.isEmpty) {
+                        store.dispatch('clearResult');
+                    } else {
+                        store.dispatch('toggleCalculatorStatus', false)
+                    }    
                 }
-            }
+            };
+
+            objectFunctions[e.target.__vnode.props.class]();
+
         }
     }
 }

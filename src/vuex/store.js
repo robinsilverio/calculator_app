@@ -19,11 +19,19 @@ const store = createStore({
         },
         ADD_OPERATIONSIGN_TO_OPERATORLIST(state, operator){
             state.operationList.push(operator);
+        },
+        CLEAR_RESULT(state) {
+            state.result = 0;
+            state.numberList = [];
+            state.operationList = [];
         }
     },
     actions:{
         addNumberToNumberList({commit}, payload) {
             commit('ADD_NUMBER_TO_NUMBER_LIST', payload)
+        },
+        clearResult({commit}) {
+            commit('CLEAR_RESULT');
         }
     }
 })

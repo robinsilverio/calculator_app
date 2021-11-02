@@ -35,6 +35,8 @@ export default {
             e.preventDefault();
             if(e.target.__vnode.props.class === 'btn_regular numeric') {
                 this.$store.dispatch('addNumberToNumberList', e.target.value)
+            } else if (e.target.__vnode.props.class === 'btn_clear') {
+                this.$store.dispatch('clearResult')
             }
         }
     }

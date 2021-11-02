@@ -11,6 +11,7 @@ const store = createStore({
     },
     mutations: {
         ADD_NUMBER_TO_NUMBER_LIST(state, number) {
+            state.result = ""
             state.numberList.push(number);
             state.numberList.forEach(number => {
                 state.result += number

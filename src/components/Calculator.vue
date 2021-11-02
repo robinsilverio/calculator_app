@@ -1,24 +1,29 @@
 <template>
   <div class="calculator">
     <Header />
-    <CalculatorScreen result="0" />
+    <CalculatorScreen :result="this.displayScreen" />
     <CalculatorButtons />
   </div>
 </template>
 
 <script>
+import store from '../vuex/store.js'
 import Header from '../components/Header.vue';
 import CalculatorScreen from '../components/CalculatorScreen.vue';
 import CalculatorButtons from '../components/CalculatorButtons.vue';
 
 export default {
   name: 'Calculator',
+  store,
+  computed: {
+    displayScreen(){
+      return this.$store.getters.obtainResult
+    }
+  },
   components : {
     Header,
     CalculatorScreen,
     CalculatorButtons,
-  },
-  props: {
   }
 }
 </script>

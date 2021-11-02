@@ -22,6 +22,8 @@ const store = createStore({
         },
         CLEAR_RESULT(state) {
             state.result = 0;
+        },
+        CLEAR_LISTS(state) {
             state.numberList = [];
             state.operationList = [];
         },
@@ -35,9 +37,11 @@ const store = createStore({
         },
         clearResult({commit}) {
             commit('CLEAR_RESULT');
+            commit('CLEAR_LISTS');
         },
         toggleCalculatorStatus({commit}, payload) {
             commit('DETERMINE_STATUS_CALCULATOR', payload);
+            commit('CLEAR_LISTS')
         }
     }
 })

@@ -20,8 +20,11 @@
 </template>
 <script>
 import { buttonData } from "../data/buttonData.js";
+import store from "../vuex/store.js"
+
 export default {
     name: 'CalculatorButtons',
+    store,
     data() {
         return {
             buttons: buttonData
@@ -30,8 +33,9 @@ export default {
     methods: {
         pressButton(e) {
             e.preventDefault();
-            console.log(e.target.value);
-            // Work in progress...
+            if(e.target.__vnode.props.class === 'btn_regular numeric') {
+                this.$store.dispatch('addNumberToNumberList', e.target.value)
+            }
         }
     }
 }

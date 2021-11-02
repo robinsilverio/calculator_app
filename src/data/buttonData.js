@@ -1,6 +1,6 @@
 export const buttonData = [
     {
-        className: 'btn_regular btn_off',
+        className: 'btn_off',
         text: 'OFF'
     }, 
     {
@@ -80,7 +80,7 @@ export const buttonData = [
         text: '+'
     },
     {
-        className: 'btn_clear',
+        className: 'btn_clear btn_on',
         text: 'AC'
     }, 
     {

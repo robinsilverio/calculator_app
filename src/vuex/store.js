@@ -24,6 +24,9 @@ const store = createStore({
             state.result = 0;
             state.numberList = [];
             state.operationList = [];
+        },
+        DETERMINE_STATUS_CALCULATOR(state, isOff) {
+            state.result = (isOff) ? '' : 0;
         }
     },
     actions:{
@@ -32,6 +35,9 @@ const store = createStore({
         },
         clearResult({commit}) {
             commit('CLEAR_RESULT');
+        },
+        toggleCalculatorStatus({commit}, payload) {
+            commit('DETERMINE_STATUS_CALCULATOR', payload);
         }
     }
 })

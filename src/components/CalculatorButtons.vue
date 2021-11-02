@@ -37,6 +37,14 @@ export default {
                 this.$store.dispatch('addNumberToNumberList', e.target.value)
             } else if (e.target.__vnode.props.class === 'btn_clear') {
                 this.$store.dispatch('clearResult')
+            } else if (e.target.__vnode.props.class === 'btn_off') {
+                this.$store.dispatch('toggleCalculatorStatus', true);
+            } else if (e.target.__vnode.props.class === 'btn_clear btn_on') {
+                if (this.$store.getters.obtainResult.isEmpty) {
+                    this.$store.dispatch('clearResult');
+                } else {
+                    this.$store.dispatch('toggleCalculatorStatus', false)
+                }
             }
         }
     }

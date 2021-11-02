@@ -45,7 +45,7 @@ export default {
                     store.dispatch('toggleCalculatorStatus', true);
                 },
                 'btn_clear btn_on': function () {
-                    if (this.$store.getters.obtainResult.isEmpty) {
+                    if (store.getters.obtainResult.isEmpty) {
                         store.dispatch('clearResult');
                     } else {
                         store.dispatch('toggleCalculatorStatus', false)

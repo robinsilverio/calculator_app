@@ -1,13 +1,16 @@
 import { createStore } from 'vuex'
+import { buttonData } from '../data/buttonData.js';
 
 const store = createStore({
     state: {
         result: 0,
         numberList: [],
-        operationList: []
+        operationList: [],
+        buttons: buttonData
     },
     getters: {
-        obtainResult: state => state.result
+        obtainResult: state => state.result,
+        getButtons: state => state.buttons
     },
     mutations: {
         ADD_NUMBER_TO_NUMBER_LIST(state, number) {
@@ -27,8 +30,13 @@ const store = createStore({
             state.numberList = [];
             state.operationList = [];
         },
-        DETERMINE_STATUS_CALCULATOR(state, isOff) {
-            state.result = (isOff) ? '' : 0;
+        DETERMINE_STATUS_CALCULATOR(state, status) {
+            state.result = (status) ? '' : 0;
+            state.buttons.forEach(button => {
+                if (button.className.includes('btn_regular')) {
+                    button.disabled = status;
+                }
+            });
         }
     },
     actions:{

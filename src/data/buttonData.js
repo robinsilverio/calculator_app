@@ -1,98 +1,122 @@
 export const buttonData = [
     {
         className: 'btn_off',
-        text: 'OFF'
+        text: 'OFF',
+        disabled: false
     }, 
     {
-        className: 'btn_mem',
-        text: 'MRC'
+        className: 'btn_regular btn_mem',
+        text: 'MRC',
+        disabled: false
     }, 
     {
-        className: 'btn_mem',
-        text: 'M-'
+        className: 'btn_regular btn_mem',
+        text: 'M-',
+        disabled: false
     }, 
     {
-        className: 'btn_mem',
-        text: 'M+'
+        className: 'btn_regular btn_mem',
+        text: 'M+',
+        disabled: false
     }, 
     {
         className: 'btn_regular op_division',
-        text: '÷'
+        text: '÷',
+        disabled: false
     }, 
     {
         className: 'btn_regular op_percentage',
-        text: '%'
+        text: '%',
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 7
+        text: 7,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 8
+        text: 8,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 9
+        text: 9,
+        disabled: false
     }, 
     {
         className: 'btn_regular op_multiplication',
-        text: 'x'
+        text: 'x',
+        disabled: false
     },
     {
         className: 'btn_regular op_square_root',
-        text: '√'
+        text: '√',
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 4
+        text: 4,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 5
+        text: 5,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 6
+        text: 6,
+        disabled: false
     }, 
     {
         className: 'btn_regular op_subtraction',
-        text: '-'
+        text: '-',
+        disabled: false
     },
     {
-        className: 'btn_clear',
-        text: 'CE'
+        className: 'btn_regular btn_clear',
+        text: 'CE',
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 1
+        text: 1,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 2
+        text: 2,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 3
+        text: 3,
+        disabled: false
     }, 
     {
         className: 'btn_regular op_addition',
-        text: '+'
+        text: '+',
+        disabled: false
     },
     {
         className: 'btn_clear btn_on',
-        text: 'AC'
+        text: 'AC',
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: 0
+        text: 0,
+        disabled: false
     }, 
     {
         className: 'btn_regular numeric',
-        text: '.'
+        text: '.',
+        disabled: false
     }, 
     {
         className: 'btn_regular op_equals',
-        text: '='
+        text: '=',
+        disabled: false
     }
 ]

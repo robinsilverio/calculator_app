@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Checklist
+- [x] Basic styling calculator
+- [x] Button styling
+- [x] Added eventhandlers to buttons
+- [ ] Implement calculation functionality

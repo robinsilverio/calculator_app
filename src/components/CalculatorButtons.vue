@@ -2,16 +2,18 @@
     <div class="calculator_main">
         <div class="calculator_buttons">
             <button 
-                v-for="button in buttons.slice(0, 20)" 
+                v-for="button in this.calculatorButtons.slice(0, 20)" 
                 v-on:click="pressButton($event)" 
                 :class="button.className" 
+                :disabled="button.disabled"
                 :key="button.text" 
                 :value="button.text">{{ button.text }}</button>
             <div class="last_row_buttons">
                 <button 
-                    v-for="button in buttons.slice(20)" 
+                    v-for="button in this.calculatorButtons.slice(20)" 
                     v-on:click="pressButton($event)" 
-                    :class="button.className" 
+                    :class="button.className"
+                    :disabled="button.disabled" 
                     :key="button.text" 
                     :value="button.text">{{ button.text }}</button>
             </div>
@@ -19,15 +21,14 @@
     </div>
 </template>
 <script>
-import { buttonData } from "../data/buttonData.js";
 import store from "../vuex/store.js"
 
 export default {
     name: 'CalculatorButtons',
     store,
-    data() {
-        return {
-            buttons: buttonData
+    computed: {
+        calculatorButtons() {
+            return this.$store.getters.getButtons;
         }
     },
     methods: {
@@ -38,7 +39,7 @@ export default {
                 'btn_regular numeric' : function () {
                     store.dispatch('addNumberToNumberList', e.target.value);
                 },
-                'btn_clear': function () {
+                'btn_regular btn_clear': function () {
                     store.dispatch('clearResult')                    
                 },
                 'btn_off': function () {

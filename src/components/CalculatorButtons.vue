@@ -35,6 +35,8 @@ export default {
         pressButton(e) {
             e.preventDefault();
 
+            let targetedElement = e.target;
+
             let objectFunctions = {
                 'btn_regular numeric' : function () {
                     store.dispatch('addNumberToNumberList', e.target.value);
@@ -54,7 +56,7 @@ export default {
                 }
             };
 
-            objectFunctions[e.target.__vnode.props.class]();
+            objectFunctions[targetedElement.className]();
 
         }
     }

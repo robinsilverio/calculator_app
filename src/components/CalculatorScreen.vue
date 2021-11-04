@@ -7,7 +7,7 @@
 export default {
     name: 'CalculatorScreen',
     props:{
-        result: Number
+        result: String
     }
 }
 </script>

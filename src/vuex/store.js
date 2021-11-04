@@ -3,7 +3,7 @@ import { buttonData } from '../data/buttonData.js';
 
 const store = createStore({
     state: {
-        result: 0,
+        result: "0",
         numberList: [],
         operationList: [],
         buttons: buttonData
@@ -24,14 +24,14 @@ const store = createStore({
             state.operationList.push(operator);
         },
         CLEAR_RESULT(state) {
-            state.result = 0;
+            state.result = '0';
         },
         CLEAR_LISTS(state) {
             state.numberList = [];
             state.operationList = [];
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
-            state.result = (status) ? '' : 0;
+            state.result = (status) ? '' : '0';
             state.buttons.forEach(button => {
                 if (button.className.includes('btn_regular')) {
                     button.disabled = status;

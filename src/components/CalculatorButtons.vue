@@ -53,6 +53,9 @@ export default {
                     } else {
                         store.dispatch('toggleCalculatorStatus', false)
                     }    
+                },
+                'btn_regular op_addition': function () {
+                    store.dispatch('performAdditionOperation');
                 }
             };
 

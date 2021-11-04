@@ -5,6 +5,7 @@ const store = createStore({
     state: {
         result: "0",
         numberList: [],
+        operandList: [],
         operationList: [],
         buttons: buttonData
     },
@@ -13,21 +14,23 @@ const store = createStore({
         getButtons: state => state.buttons
     },
     mutations: {
-        ADD_NUMBER_TO_NUMBER_LIST(state, number) {
+        PRINT_NUMBER_IN_SCREEN(state, number) {
+            if (state.operationList.length === 1) {
+                state.numberList = [];
+                state.operationList = []
+            }
             state.result = ""
             state.numberList.push(number);
             state.numberList.forEach(number => {
                 state.result += number
             });
         },
-        ADD_OPERATIONSIGN_TO_OPERATORLIST(state, operator){
-            state.operationList.push(operator);
-        },
         CLEAR_RESULT(state) {
             state.result = '0';
         },
         CLEAR_LISTS(state) {
             state.numberList = [];
+            state.operandList = [];
             state.operationList = [];
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
@@ -37,11 +40,26 @@ const store = createStore({
                     button.disabled = status;
                 }
             });
+        },
+        PERFORM_ADDITION_OPERATION(state) {
+            state.operationList.push("+");
+            if (state.operandList.length === 1) {
+                state.operandList.push(state.result);
+                let tmp_result = 0;
+                
+                state.operandList.forEach(operand => {
+                    tmp_result += parseFloat(operand);
+                });
+                state.result = tmp_result.toString();
+                state.operandList = [state.result];            
+            } else {
+                state.operandList.push(state.result)
+            }
         }
     },
     actions:{
         addNumberToNumberList({commit}, payload) {
-            commit('ADD_NUMBER_TO_NUMBER_LIST', payload)
+            commit('PRINT_NUMBER_IN_SCREEN', payload)
         },
         clearResult({commit}) {
             commit('CLEAR_RESULT');
@@ -50,6 +68,9 @@ const store = createStore({
         toggleCalculatorStatus({commit}, payload) {
             commit('DETERMINE_STATUS_CALCULATOR', payload);
             commit('CLEAR_LISTS')
+        },
+        performAdditionOperation({commit}) {
+            commit('PERFORM_ADDITION_OPERATION');
         }
     }
 })

@@ -22,6 +22,7 @@
 </template>
 <script>
 import store from "../vuex/store.js"
+import { buttonFunctions } from '../functions/buttonFunctions.js'
 
 export default {
     name: 'CalculatorButtons',
@@ -34,33 +35,8 @@ export default {
     methods: {
         pressButton(e) {
             e.preventDefault();
-
             let targetedElement = e.target;
-
-            let objectFunctions = {
-                'btn_regular numeric' : function () {
-                    store.dispatch('addNumberToNumberList', e.target.value);
-                },
-                'btn_regular btn_clear': function () {
-                    store.dispatch('clearResult')                    
-                },
-                'btn_off': function () {
-                    store.dispatch('toggleCalculatorStatus', true);
-                },
-                'btn_clear btn_on': function () {
-                    if (store.getters.obtainResult.isEmpty) {
-                        store.dispatch('clearResult');
-                    } else {
-                        store.dispatch('toggleCalculatorStatus', false)
-                    }    
-                },
-                'btn_regular op_addition': function () {
-                    store.dispatch('performAdditionOperation');
-                }
-            };
-
-            objectFunctions[targetedElement.className]();
-
+            buttonFunctions[targetedElement.className](targetedElement.value);
         }
     }
 }

@@ -70,8 +70,8 @@ const store = createStore({
             commit('DETERMINE_STATUS_CALCULATOR', payload);
             commit('CLEAR_LISTS')
         },
-        performAdditionOperation({commit}) {
-            commit('PERFORM_MATH_OPERATION', '+');
+        performMathOperation({commit}, paramOperationSign) {
+            commit('PERFORM_MATH_OPERATION', paramOperationSign);
         }
     }
 })

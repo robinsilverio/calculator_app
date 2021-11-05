@@ -1,8 +1,8 @@
 import store from '../vuex/store.js'
 
 export const buttonFunctions = {
-    'btn_regular numeric' : function (value) {
-        store.dispatch('addNumberToNumberList', value);
+    'btn_regular numeric' : function (paramNumber) {
+        store.dispatch('addNumberToNumberList', paramNumber);
     },
     'btn_regular btn_clear': function () {
         store.dispatch('clearResult')                    
@@ -17,7 +17,7 @@ export const buttonFunctions = {
             store.dispatch('toggleCalculatorStatus', false)
         }    
     },
-    'btn_regular op_addition': function () {
-        store.dispatch('performAdditionOperation');
+    'btn_regular btn_operation': function (paramOperationSign) {
+        store.dispatch('performMathOperation', paramOperationSign);
     }
 };

@@ -20,7 +20,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular op_division',
+        className: 'btn_regular btn_operation',
         text: '÷',
         disabled: false
     }, 
@@ -45,7 +45,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular op_multiplication',
+        className: 'btn_regular btn_operation',
         text: 'x',
         disabled: false
     },
@@ -70,7 +70,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular op_subtraction',
+        className: 'btn_regular btn_operation',
         text: '-',
         disabled: false
     },
@@ -95,7 +95,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular op_addition',
+        className: 'btn_regular btn_operation',
         text: '+',
         disabled: false
     },

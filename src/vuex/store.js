@@ -43,6 +43,9 @@ const store = createStore({
             });
         },
         PERFORM_MATH_OPERATION(state, paramOperator) {
+
+            if (state.operationList.length >= 1) return;
+
             state.operationList.push(paramOperator);
             if (state.operandList.length === 1) {
 

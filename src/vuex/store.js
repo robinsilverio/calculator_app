@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { buttonData } from '../data/buttonData.js';
+import { mathFunctions } from '../functions/mathFunctions.js';
 
 const store = createStore({
     state: {
@@ -41,17 +42,17 @@ const store = createStore({
                 }
             });
         },
-        PERFORM_ADDITION_OPERATION(state) {
-            state.operationList.push("+");
+        PERFORM_MATH_OPERATION(state, paramOperator) {
+            state.operationList.push(paramOperator);
             if (state.operandList.length === 1) {
+
                 state.operandList.push(state.result);
-                let tmp_result = 0;
+
+                let tmp_result = mathFunctions[state.operationList[0]](state.operandList);
                 
-                state.operandList.forEach(operand => {
-                    tmp_result += parseFloat(operand);
-                });
                 state.result = tmp_result.toString();
-                state.operandList = [state.result];            
+                state.operandList = [state.result];
+
             } else {
                 state.operandList.push(state.result)
             }
@@ -70,7 +71,7 @@ const store = createStore({
             commit('CLEAR_LISTS')
         },
         performAdditionOperation({commit}) {
-            commit('PERFORM_ADDITION_OPERATION');
+            commit('PERFORM_MATH_OPERATION', '+');
         }
     }
 })

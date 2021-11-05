@@ -18,7 +18,6 @@ const store = createStore({
         PRINT_NUMBER_IN_SCREEN(state, number) {
             if (state.operationList.length === 1) {
                 state.numberList = [];
-                state.operationList = []
             }
             state.result = ""
             state.numberList.push(number);
@@ -44,20 +43,30 @@ const store = createStore({
         },
         PERFORM_MATH_OPERATION(state, paramOperator) {
 
-            if (state.operationList.length >= 1) return;
+            if (state.operationList.length > 1) return;
 
             state.operationList.push(paramOperator);
             if (state.operandList.length === 1) {
 
                 state.operandList.push(state.result);
 
-                let tmp_result = mathFunctions['performBasicMathOperation'](state.operandList, state.operationList[0]);
+                state.result = mathFunctions['performBasicMathOperation'](state.operandList, state.operationList[0]).toString();
                 
-                state.result = tmp_result.toString();
                 state.operandList = [state.result];
 
             } else {
-                state.operandList.push(state.result)
+                state.operandList.push(state.result);
+            }
+        },
+        EQUALIZE(state) {
+
+            const basicOperationsList = ['+', '-', 'x', '÷'];
+
+            if (basicOperationsList.includes(state.operationList[0])) {
+                state.operandList.push(state.result);
+                state.result = mathFunctions['performBasicMathOperation'](state.operandList, state.operationList[0]).toString();
+            } else {
+                // Work in progress...
             }
         }
     },
@@ -75,6 +84,9 @@ const store = createStore({
         },
         performMathOperation({commit}, paramOperationSign) {
             commit('PERFORM_MATH_OPERATION', paramOperationSign);
+        },
+        equalize({commit}) {
+            commit('EQUALIZE');
         }
     }
 })

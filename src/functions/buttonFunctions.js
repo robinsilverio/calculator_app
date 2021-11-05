@@ -19,5 +19,8 @@ export const buttonFunctions = {
     },
     'btn_regular btn_operation': function (paramOperationSign) {
         store.dispatch('performMathOperation', paramOperationSign);
+    },
+    'btn_regular op_equals': function () {
+        store.dispatch('equalize');
     }
 };

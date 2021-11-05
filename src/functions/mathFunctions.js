@@ -5,7 +5,7 @@ export const mathFunctions = {
             if (paramOperation === '+') {
                 tmp_result += parseFloat(operand);
             } else if (paramOperation === '-') {
-                // Work in progress...
+                tmp_result = paramOperandList[0] - paramOperandList[1];
             }
         });
         return tmp_result;

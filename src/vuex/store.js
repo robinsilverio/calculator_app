@@ -51,7 +51,7 @@ const store = createStore({
 
                 state.operandList.push(state.result);
 
-                let tmp_result = mathFunctions[state.operationList[0]](state.operandList);
+                let tmp_result = mathFunctions['performBasicMathOperation'](state.operandList, state.operationList[0]);
                 
                 state.result = tmp_result.toString();
                 state.operandList = [state.result];

@@ -32,7 +32,7 @@ const store = createStore({
             state.numberList = [];
         },
         CLEAR_OPERATORS_LIST(state) {
-            state.operatorsList = [];
+            state.operatorsList = new Set();
         },
         CLEAR_LISTS(state) {
             state.numberList = [];

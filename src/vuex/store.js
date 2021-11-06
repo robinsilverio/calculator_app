@@ -6,7 +6,7 @@ const store = createStore({
     state: {
         result: "0",
         numberList: [],
-        operandList: [],
+        operandsList: [],
         operatorsList: new Set(),
         buttons: buttonData
     },
@@ -28,15 +28,18 @@ const store = createStore({
         CLEAR_RESULT(state) {
             state.result = '0';
         },
+        CLEAR_OPERATOR(state) {
+            state.operatorsList.delete(Array.from(state.operatorsList)[0]);
+        },
         CLEAR_NUMBER_LIST(state) {
             state.numberList = [];
         },
-        CLEAR_OPERATORS_LIST(state) {
-            state.operatorsList = new Set();
+        CLEAR_OPERANDS_LIST(state) {
+            state.operandsList = [];
         },
         CLEAR_LISTS(state) {
             state.numberList = [];
-            state.operandList = [];
+            state.operandsList = [];
             state.operatorsList = new Set();
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
@@ -47,15 +50,18 @@ const store = createStore({
                 }
             });
         },
+        SET_RESULT_TO_LIST(state) {
+            state.numberList = state.result;
+        },
         SET_OPERAND_TO_LIST(state) {
-            state.operandList.push(state.result);
+            state.operandsList.push(state.result);
         },
         SET_OPERATOR_TO_LIST(state, paramOperator) {
             state.operatorsList.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
-            state.result = mathFunctions['performBasicMathOperation'](state.operandList, Array.from(state.operatorsList)[0]).toString();
-            state.operandList = [state.result];
+            state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]).toString();
+            state.operandsList = [state.result];
         }
     },
     actions:{
@@ -86,8 +92,9 @@ const store = createStore({
             if (basicOperatorsList.includes(Array.from(this.state.operatorsList)[0])) {
                 commit('SET_OPERAND_TO_LIST');
                 commit('PERFORM_MATH_OPERATION');
-                commit('CLEAR_OPERATORS_LIST');
-                commit('CLEAR_NUMBER_LIST');
+                commit('SET_RESULT_TO_LIST');
+                commit('CLEAR_OPERANDS_LIST');
+                commit('CLEAR_OPERATOR');
             } else {
                 // Work in progress...
             }

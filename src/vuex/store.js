@@ -82,7 +82,9 @@ const store = createStore({
 
             commit('SET_OPERAND_TO_LIST');
             commit('SET_OPERATOR_TO_LIST', paramOperator);
-            commit('PERFORM_MATH_OPERATION')
+            if (this.state.operandsList.length === 2 && this.state.operatorsList.size === 1) {
+                commit('PERFORM_MATH_OPERATION')
+            }
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
@@ -91,7 +93,9 @@ const store = createStore({
 
             if (basicOperatorsList.includes(Array.from(this.state.operatorsList)[0])) {
                 commit('SET_OPERAND_TO_LIST');
-                commit('PERFORM_MATH_OPERATION');
+                if (this.state.operandsList.length === 2 && this.state.operatorsList.size === 1) {
+                    commit('PERFORM_MATH_OPERATION')
+                }
                 commit('SET_RESULT_TO_LIST');
                 commit('CLEAR_OPERANDS_LIST');
                 commit('CLEAR_OPERATOR');

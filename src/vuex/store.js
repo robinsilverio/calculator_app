@@ -7,7 +7,7 @@ const store = createStore({
         result: "0",
         numberList: [],
         operandList: [],
-        operationList: new Set(),
+        operatorsList: new Set(),
         buttons: buttonData
     },
     getters: {
@@ -16,7 +16,7 @@ const store = createStore({
     },
     mutations: {
         PRINT_NUMBER_IN_SCREEN(state, number) {
-            if (state.operationList.size === 1) {
+            if (state.operatorsList.size === 1) {
                 state.numberList = [];
             }
             state.result = ""
@@ -31,10 +31,13 @@ const store = createStore({
         CLEAR_NUMBER_LIST(state) {
             state.numberList = [];
         },
+        CLEAR_OPERATORS_LIST(state) {
+            state.operatorsList = [];
+        },
         CLEAR_LISTS(state) {
             state.numberList = [];
             state.operandList = [];
-            state.operationList = new Set();
+            state.operatorsList = new Set();
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
             state.result = (status) ? '' : '0';
@@ -48,25 +51,11 @@ const store = createStore({
             state.operandList.push(state.result);
         },
         SET_OPERATOR_TO_LIST(state, paramOperator) {
-            state.operationList.add(paramOperator)
+            state.operatorsList.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
-            state.result = mathFunctions['performBasicMathOperation'](state.operandList, Array.from(state.operationList)[0]).toString();
+            state.result = mathFunctions['performBasicMathOperation'](state.operandList, Array.from(state.operatorsList)[0]).toString();
             state.operandList = [state.result];
-        },
-        EQUALIZE(state) {
-
-            const basicOperationsList = ['+', '-', 'x', '÷'];
-            console.log(basicOperationsList);
-
-            if (basicOperationsList.includes(Array.from(state.operationList)[0])) {
-                state.operandList.push(state.result);
-                state.result = mathFunctions['performBasicMathOperation'](state.operandList, Array.from(state.operationList)[0]).toString();
-                state.operandList = [state.result];
-                state.operationList.delete(Array.from(state.operationList)[0]);
-            } else {
-                // Work in progress...
-            }
         }
     },
     actions:{
@@ -81,17 +70,27 @@ const store = createStore({
             commit('DETERMINE_STATUS_CALCULATOR', payload);
             commit('CLEAR_LISTS')
         },
-        performMathOperation({commit}, paramOperationSign) {
+        performMathOperation({commit}, paramOperator) {
 
             if (this.state.numberList.length === 0) return;
 
             commit('SET_OPERAND_TO_LIST');
-            commit('SET_OPERATOR_TO_LIST', paramOperationSign);
+            commit('SET_OPERATOR_TO_LIST', paramOperator);
             commit('PERFORM_MATH_OPERATION')
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
-            commit('EQUALIZE');
+            
+            const basicOperatorsList = ['+', '-', 'x', '÷'];
+
+            if (basicOperatorsList.includes(Array.from(this.state.operatorsList)[0])) {
+                commit('SET_OPERAND_TO_LIST');
+                commit('PERFORM_MATH_OPERATION');
+                commit('CLEAR_OPERATORS_LIST');
+                commit('CLEAR_NUMBER_LIST');
+            } else {
+                // Work in progress...
+            }
         }
     }
 })

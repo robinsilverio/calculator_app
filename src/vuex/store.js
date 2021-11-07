@@ -14,7 +14,7 @@ const store = createStore({
     getters: {
         obtainDisplayText: state => state.displayText,
         getButtons: state => state.buttons,
-        isDisplayTextEmpty: state => state.displayText.isEmpty,
+        isNumberListEmpty: state => state.numberList.length === 0,
         isSimpleExpressionValid: state => state.operandsList.length === 2 && state.operatorsList.size === 1,
         isBasicMathOperationChosenByUser: state => {
             let basicOperatorsList = ['+', '-', 'x', '÷']
@@ -89,7 +89,7 @@ const store = createStore({
         },
         performMathOperation({commit}, paramOperator) {
 
-            if (this.getters.isDisplayTextEmpty) return;
+            if (this.getters.isNumberListEmpty) return;
 
             commit('SET_OPERAND_TO_LIST');
             commit('SET_OPERATOR_TO_LIST', paramOperator);

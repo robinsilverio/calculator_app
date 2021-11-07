@@ -11,7 +11,7 @@ export const buttonFunctions = {
         store.dispatch('toggleCalculatorStatus', true);
     },
     'btn_clear btn_on': function () {
-        if (store.getters.obtainResult.isEmpty) {
+        if (store.getters.obtainDisplayText.isEmpty) {
             store.dispatch('clearResult');
         } else {
             store.dispatch('toggleCalculatorStatus', false)

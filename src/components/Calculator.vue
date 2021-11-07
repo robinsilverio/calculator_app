@@ -1,7 +1,7 @@
 <template>
   <div class="calculator">
     <Header />
-    <CalculatorScreen :result="this.displayScreen" />
+    <CalculatorScreen :displayText="this.displayText" />
     <CalculatorButtons />
   </div>
 </template>
@@ -16,8 +16,8 @@ export default {
   name: 'Calculator',
   store,
   computed: {
-    displayScreen(){
-      return this.$store.getters.obtainResult
+    displayText(){
+      return this.$store.getters.obtainDisplayText
     }
   },
   components : {

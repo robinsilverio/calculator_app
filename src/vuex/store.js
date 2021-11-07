@@ -96,8 +96,6 @@ const store = createStore({
                 commit('SET_RESULT_TO_LIST');
                 commit('CLEAR_OPERANDS_LIST');
                 commit('CLEAR_OPERATOR');
-            } else {
-                // Work in progress...
             }
         }
     }

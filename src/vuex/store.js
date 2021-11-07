@@ -12,7 +12,13 @@ const store = createStore({
     },
     getters: {
         obtainResult: state => state.result,
-        getButtons: state => state.buttons
+        getButtons: state => state.buttons,
+        isDisplayTextEmpty: state => state.numberList.length === 0,
+        isSimpleExpressionValid: state => state.operandsList.length === 2 && state.operatorsList.size === 1,
+        isBasicMathOperationChosenByUser: state => {
+            let basicOperatorsList = ['+', '-', 'x', '÷']
+            return basicOperatorsList.includes(Array.from(state.operatorsList)[0])
+        }
     },
     mutations: {
         PRINT_NUMBER_IN_SCREEN(state, number) {
@@ -75,22 +81,20 @@ const store = createStore({
         },
         performMathOperation({commit}, paramOperator) {
 
-            if (this.state.numberList.length === 0) return;
+            if (this.getters.isDisplayTextEmpty) return;
 
             commit('SET_OPERAND_TO_LIST');
             commit('SET_OPERATOR_TO_LIST', paramOperator);
-            if (this.state.operandsList.length === 2 && this.state.operatorsList.size === 1) {
+            if (this.getters.isSimpleExpressionValid) {
                 commit('PERFORM_MATH_OPERATION')
             }
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
             
-            const basicOperatorsList = ['+', '-', 'x', '÷'];
-
-            if (basicOperatorsList.includes(Array.from(this.state.operatorsList)[0])) {
+            if (this.getters.isBasicMathOperationChosenByUser) {
                 commit('SET_OPERAND_TO_LIST');
-                if (this.state.operandsList.length === 2 && this.state.operatorsList.size === 1) {
+                if (this.getters.isSimpleExpressionValid) {
                     commit('PERFORM_MATH_OPERATION')
                 }
                 commit('SET_RESULT_TO_LIST');

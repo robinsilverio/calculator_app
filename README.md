@@ -27,4 +27,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [x] Basic styling calculator
 - [x] Button styling
 - [x] Added eventhandlers to buttons
-- [ ] Implement calculation functionality
+- [X] Implement basic calculation functionality
+- [ ] Implement complex calculation functionality

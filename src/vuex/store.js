@@ -72,7 +72,6 @@ const store = createStore({
         },
         PERFORM_MATH_OPERATION(state) {
             state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]);
-            console.log(state.result);
         }
     },
     actions:{

@@ -16,9 +16,6 @@ const store = createStore({
     },
     mutations: {
         PRINT_NUMBER_IN_SCREEN(state, number) {
-            if (state.operatorsList.size === 1) {
-                state.numberList = [];
-            }
             state.result = ""
             state.numberList.push(number);
             state.numberList.forEach(number => {

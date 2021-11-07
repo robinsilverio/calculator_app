@@ -1,13 +1,13 @@
 <template>
     <div class="calculator_screen_container">
-      <div class="calculator_screen">{{this.result}}</div>
+      <div class="calculator_screen">{{this.displayText}}</div>
     </div>
 </template>
 <script>
 export default {
     name: 'CalculatorScreen',
     props:{
-        result: String
+        displayText: String
     }
 }
 </script>

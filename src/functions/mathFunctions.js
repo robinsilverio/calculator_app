@@ -13,5 +13,8 @@ export const mathFunctions = {
             }
         });
         return tmp_result;
-    } 
+    },
+    'calculateSquareRoot': function (paramOperand) {
+        return Math.sqrt(paramOperand);
+    }
 };

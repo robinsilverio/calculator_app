@@ -15,10 +15,17 @@ const store = createStore({
         obtainDisplayText: state => state.displayText,
         getButtons: state => state.buttons,
         isNumberListEmpty: state => state.numberList.length === 0,
-        isSimpleExpressionValid: state => state.operandsList.length === 2 && state.operatorsList.size === 1,
+        isSimpleExpressionValid: (state, getters) => {
+            return state.operandsList.length === 2 && getters.isBasicMathOperationChosenByUser ||
+                   state.operandsList.length === 1 && getters.isSquareRootOperationChosenByUser
+        },
         isBasicMathOperationChosenByUser: state => {
-            let basicOperatorsList = ['+', '-', 'x', '÷']
-            return basicOperatorsList.includes(Array.from(state.operatorsList)[0])
+            let basicOperatorsList = ['+', '-', 'x', '÷', '%'];
+            return Array.from(state.operatorsList).every(operator => basicOperatorsList.includes(operator));
+        },
+        isSquareRootOperationChosenByUser: state => {
+            const SQUARE_ROOT_OPERATOR = '√';
+            return SQUARE_ROOT_OPERATOR === Array.from(state.operatorsList)[0];
         }
     },
     mutations: {
@@ -71,7 +78,11 @@ const store = createStore({
             state.operatorsList.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
-            state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]);
+            if (this.getters.isBasicMathOperationChosenByUser) {
+                state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]);
+            } else {
+                state.result = mathFunctions['calculateSquareRoot'](state.operandsList[0]);
+            }
         }
     },
     actions:{
@@ -100,13 +111,10 @@ const store = createStore({
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
-            
-            if (this.getters.isBasicMathOperationChosenByUser) {
-                commit('SET_OPERAND_TO_LIST');
-                if (this.getters.isSimpleExpressionValid) {
-                    commit('PERFORM_MATH_OPERATION');
-                    commit('DISPLAY_RESULT');
-                }
+            commit('SET_OPERAND_TO_LIST');
+            if (this.getters.isSimpleExpressionValid) {
+                commit('PERFORM_MATH_OPERATION');
+                commit('DISPLAY_RESULT');
                 commit('SET_RESULT_TO_LIST');
                 commit('CLEAR_OPERANDS_LIST');
                 commit('CLEAR_OPERATOR');

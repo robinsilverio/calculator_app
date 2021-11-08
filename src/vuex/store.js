@@ -8,7 +8,7 @@ const store = createStore({
         result: 0,
         numberList: [],
         operandsList: [],
-        operatorsList: new Set(),
+        operatorsSet: new Set(),
         buttons: buttonData
     },
     getters: {
@@ -21,11 +21,11 @@ const store = createStore({
         },
         isBasicMathOperationChosenByUser: state => {
             let basicOperatorsList = ['+', '-', 'x', '÷', '%'];
-            return Array.from(state.operatorsList).every(operator => basicOperatorsList.includes(operator));
+            return Array.from(state.operatorsSet).every(operator => basicOperatorsList.includes(operator));
         },
         isSquareRootOperationChosenByUser: state => {
             const SQUARE_ROOT_OPERATOR = '√';
-            return SQUARE_ROOT_OPERATOR === Array.from(state.operatorsList)[0];
+            return SQUARE_ROOT_OPERATOR === Array.from(state.operatorsSet)[0];
         }
     },
     mutations: {
@@ -41,7 +41,7 @@ const store = createStore({
             state.displayText = state.result.toString();
         },
         CLEAR_OPERATOR(state) {
-            state.operatorsList.delete(Array.from(state.operatorsList)[0]);
+            state.operatorsSet.delete(Array.from(state.operatorsSet)[0]);
         },
         CLEAR_NUMBER_LIST(state) {
             state.numberList = [];
@@ -52,7 +52,7 @@ const store = createStore({
         CLEAR_LISTS(state) {
             state.numberList = [];
             state.operandsList = [];
-            state.operatorsList = new Set();
+            state.operatorsSet = new Set();
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
             state.displayText = (status) ? '' : '0';
@@ -75,11 +75,11 @@ const store = createStore({
             state.operandsList.push(state.displayText);
         },
         SET_OPERATOR_TO_LIST(state, paramOperator) {
-            state.operatorsList.add(paramOperator)
+            state.operatorsSet.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
             if (this.getters.isBasicMathOperationChosenByUser) {
-                state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]);
+                state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsSet)[0]);
             } else {
                 state.result = mathFunctions['calculateSquareRoot'](state.operandsList[0]);
             }

@@ -78,6 +78,7 @@ const store = createStore({
             state.operatorsSet.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
+            console.log(state.operatorsSet);
             state.result = mathFunctions[Array.from(state.operatorsSet).join("")](state.operandsList);
         }
     },

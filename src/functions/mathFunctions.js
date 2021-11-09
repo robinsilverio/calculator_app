@@ -24,7 +24,7 @@ export const mathFunctions = {
     '-%': function (paramOperandsList) {
         return paramOperandsList[0] * ((100 - paramOperandsList[1]) / 100);
     },
-    'calculateSquareRoot': function (paramOperand) {
+    '√': function (paramOperand) {
         return Math.sqrt(paramOperand);
     }
 };

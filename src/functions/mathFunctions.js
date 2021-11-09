@@ -1,28 +1,28 @@
 export const mathFunctions = {
-    'performMathOperation': function (paramOperandList, paramOperatorsSet) {
-        let tmp_result = 0
+    '+': function (paramOperandsList) {
 
-        if (paramOperatorsSet.size === 1) {
-            paramOperandList.forEach(operand => {
-                if (paramOperatorsSet.has('+')) {
-                    tmp_result += parseFloat(operand);
-                } else if (paramOperatorsSet.has('-')) {
-                    tmp_result = paramOperandList[0] - paramOperandList[1];
-                } else if (paramOperatorsSet.has('x')) {
-                    tmp_result = paramOperandList[0] * paramOperandList[1]; 
-                } else if (paramOperatorsSet.has('÷')) {
-                    tmp_result = paramOperandList[0] / paramOperandList[1];
-                }
-            });
-        } else {
-            if (paramOperatorsSet.has('+')) {
-                tmp_result = paramOperandList[0] * (1.00 + (paramOperandList[1] / 100)); 
-            } else {
-                tmp_result = paramOperandList[0] * ((100 - paramOperandList[1]) / 100);
-            }
-        }
+        let tmp_result = 0;
+
+        paramOperandsList.forEach(operand => {
+            tmp_result += parseFloat(operand);
+        });
 
         return tmp_result;
+    },
+    '-': function (paramOperandsList) {
+        return paramOperandsList[0] - paramOperandsList[1];
+    },
+    'x': function (paramOperandsList) {
+        return paramOperandsList[0] * paramOperandsList[1];
+    },
+    '÷': function (paramOperandsList) {
+        return paramOperandsList[0] / paramOperandsList[1];
+    },
+    '+%': function (paramOperandsList) {
+        return paramOperandsList[0] * (1.00 + (paramOperandsList[1] / 100));
+    },
+    '-%': function (paramOperandsList) {
+        return paramOperandsList[0] * ((100 - paramOperandsList[1]) / 100);
     },
     'calculateSquareRoot': function (paramOperand) {
         return Math.sqrt(paramOperand);

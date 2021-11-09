@@ -25,7 +25,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular op_percentage',
+        className: 'btn_regular btn_operation',
         text: '%',
         disabled: false
     }, 
@@ -50,7 +50,7 @@ export const buttonData = [
         disabled: false
     },
     {
-        className: 'btn_regular op_square_root',
+        className: 'btn_regular btn_operation',
         text: '√',
         disabled: false
     }, 

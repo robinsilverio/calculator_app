@@ -8,17 +8,24 @@ const store = createStore({
         result: 0,
         numberList: [],
         operandsList: [],
-        operatorsList: new Set(),
+        operatorsSet: new Set(),
         buttons: buttonData
     },
     getters: {
         obtainDisplayText: state => state.displayText,
         getButtons: state => state.buttons,
         isNumberListEmpty: state => state.numberList.length === 0,
-        isSimpleExpressionValid: state => state.operandsList.length === 2 && state.operatorsList.size === 1,
+        isSimpleExpressionValid: (state, getters) => {
+            return state.operandsList.length === 2 && getters.isBasicMathOperationChosenByUser ||
+                   state.operandsList.length === 1 && getters.isSquareRootOperationChosenByUser
+        },
         isBasicMathOperationChosenByUser: state => {
-            let basicOperatorsList = ['+', '-', 'x', '÷']
-            return basicOperatorsList.includes(Array.from(state.operatorsList)[0])
+            let basicOperatorsList = ['+', '-', 'x', '÷', '%'];
+            return Array.from(state.operatorsSet).every(operator => basicOperatorsList.includes(operator));
+        },
+        isSquareRootOperationChosenByUser: state => {
+            const SQUARE_ROOT_OPERATOR = '√';
+            return SQUARE_ROOT_OPERATOR === Array.from(state.operatorsSet)[0];
         }
     },
     mutations: {
@@ -34,7 +41,7 @@ const store = createStore({
             state.displayText = state.result.toString();
         },
         CLEAR_OPERATOR(state) {
-            state.operatorsList.delete(Array.from(state.operatorsList)[0]);
+            state.operatorsSet.delete(Array.from(state.operatorsSet)[0]);
         },
         CLEAR_NUMBER_LIST(state) {
             state.numberList = [];
@@ -45,7 +52,7 @@ const store = createStore({
         CLEAR_LISTS(state) {
             state.numberList = [];
             state.operandsList = [];
-            state.operatorsList = new Set();
+            state.operatorsSet = new Set();
         },
         DETERMINE_STATUS_CALCULATOR(state, status) {
             state.displayText = (status) ? '' : '0';
@@ -58,7 +65,7 @@ const store = createStore({
         DISPLAY_RESULT(state) {
             state.displayText = state.result.toString();
         },
-        SET_RESULT_TO_LIST(state) {
+        SET_RESULT_TO_NUMBERLIST(state) {
             state.numberList = state.result;
         },
         SET_RESULT_AS_FIRST_OPERAND(state) {
@@ -68,10 +75,10 @@ const store = createStore({
             state.operandsList.push(state.displayText);
         },
         SET_OPERATOR_TO_LIST(state, paramOperator) {
-            state.operatorsList.add(paramOperator)
+            state.operatorsSet.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
-            state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsList)[0]);
+            state.result = mathFunctions[Array.from(state.operatorsSet).join("")](state.operandsList);
         }
     },
     actions:{
@@ -91,23 +98,21 @@ const store = createStore({
             if (this.getters.isNumberListEmpty) return;
 
             commit('SET_OPERAND_TO_LIST');
-            commit('SET_OPERATOR_TO_LIST', paramOperator);
             if (this.getters.isSimpleExpressionValid) {
                 commit('PERFORM_MATH_OPERATION');
-                commit('SET_RESULT_AS_FIRST_OPERAND');
                 commit('DISPLAY_RESULT');
+                commit('SET_RESULT_AS_FIRST_OPERAND');
+                commit('CLEAR_OPERATOR');
             }
+            commit('SET_OPERATOR_TO_LIST', paramOperator);
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
-            
-            if (this.getters.isBasicMathOperationChosenByUser) {
-                commit('SET_OPERAND_TO_LIST');
-                if (this.getters.isSimpleExpressionValid) {
-                    commit('PERFORM_MATH_OPERATION');
-                    commit('DISPLAY_RESULT');
-                }
-                commit('SET_RESULT_TO_LIST');
+            commit('SET_OPERAND_TO_LIST');
+            if (this.getters.isSimpleExpressionValid) {
+                commit('PERFORM_MATH_OPERATION');
+                commit('DISPLAY_RESULT');
+                commit('SET_RESULT_TO_NUMBERLIST');
                 commit('CLEAR_OPERANDS_LIST');
                 commit('CLEAR_OPERATOR');
             }

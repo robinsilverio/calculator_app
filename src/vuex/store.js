@@ -65,7 +65,7 @@ const store = createStore({
         DISPLAY_RESULT(state) {
             state.displayText = state.result.toString();
         },
-        SET_RESULT_TO_LIST(state) {
+        SET_RESULT_TO_NUMBERLIST(state) {
             state.numberList = state.result;
         },
         SET_RESULT_AS_FIRST_OPERAND(state) {
@@ -78,7 +78,6 @@ const store = createStore({
             state.operatorsSet.add(paramOperator)
         },
         PERFORM_MATH_OPERATION(state) {
-            console.log(state.operatorsSet);
             state.result = mathFunctions[Array.from(state.operatorsSet).join("")](state.operandsList);
         }
     },
@@ -99,12 +98,13 @@ const store = createStore({
             if (this.getters.isNumberListEmpty) return;
 
             commit('SET_OPERAND_TO_LIST');
-            commit('SET_OPERATOR_TO_LIST', paramOperator);
             if (this.getters.isSimpleExpressionValid) {
                 commit('PERFORM_MATH_OPERATION');
-                commit('SET_RESULT_AS_FIRST_OPERAND');
                 commit('DISPLAY_RESULT');
+                commit('SET_RESULT_AS_FIRST_OPERAND');
+                commit('CLEAR_OPERATOR');
             }
+            commit('SET_OPERATOR_TO_LIST', paramOperator);
             commit('CLEAR_NUMBER_LIST');
         },
         equalize({commit}) {
@@ -112,7 +112,7 @@ const store = createStore({
             if (this.getters.isSimpleExpressionValid) {
                 commit('PERFORM_MATH_OPERATION');
                 commit('DISPLAY_RESULT');
-                commit('SET_RESULT_TO_LIST');
+                commit('SET_RESULT_TO_NUMBERLIST');
                 commit('CLEAR_OPERANDS_LIST');
                 commit('CLEAR_OPERATOR');
             }

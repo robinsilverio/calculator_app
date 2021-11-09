@@ -1,17 +1,27 @@
 export const mathFunctions = {
-    'performBasicMathOperation': function (paramOperandList, paramOperator) {
+    'performMathOperation': function (paramOperandList, paramOperatorsSet) {
         let tmp_result = 0
-        paramOperandList.forEach(operand => {
-            if (paramOperator === '+') {
-                tmp_result += parseFloat(operand);
-            } else if (paramOperator === '-') {
-                tmp_result = paramOperandList[0] - paramOperandList[1];
-            } else if (paramOperator === 'x') {
-                tmp_result = paramOperandList[0] * paramOperandList[1]; 
-            } else if (paramOperator === '÷') {
-                tmp_result = paramOperandList[0] / paramOperandList[1];
+
+        if (paramOperatorsSet.size === 1) {
+            paramOperandList.forEach(operand => {
+                if (paramOperatorsSet.has('+')) {
+                    tmp_result += parseFloat(operand);
+                } else if (paramOperatorsSet.has('-')) {
+                    tmp_result = paramOperandList[0] - paramOperandList[1];
+                } else if (paramOperatorsSet.has('x')) {
+                    tmp_result = paramOperandList[0] * paramOperandList[1]; 
+                } else if (paramOperatorsSet.has('÷')) {
+                    tmp_result = paramOperandList[0] / paramOperandList[1];
+                }
+            });
+        } else {
+            if (paramOperatorsSet.has('+')) {
+                tmp_result = paramOperandList[0] * (1.00 + (paramOperandList[1] / 100)); 
+            } else {
+                tmp_result = paramOperandList[0] * ((100 - paramOperandList[1]) / 100);
             }
-        });
+        }
+
         return tmp_result;
     },
     'calculateSquareRoot': function (paramOperand) {

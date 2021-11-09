@@ -79,7 +79,7 @@ const store = createStore({
         },
         PERFORM_MATH_OPERATION(state) {
             if (this.getters.isBasicMathOperationChosenByUser) {
-                state.result = mathFunctions['performBasicMathOperation'](state.operandsList, Array.from(state.operatorsSet)[0]);
+                state.result = mathFunctions['performMathOperation'](state.operandsList, state.operatorsSet);
             } else {
                 state.result = mathFunctions['calculateSquareRoot'](state.operandsList[0]);
             }

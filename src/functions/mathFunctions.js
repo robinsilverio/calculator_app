@@ -25,6 +25,7 @@ export const mathFunctions = {
         return paramOperandsList[0] * ((100 - paramOperandsList[1]) / 100);
     },
     '√': function (paramOperand) {
+        console.log(paramOperand);
         return Math.sqrt(paramOperand);
     }
 };

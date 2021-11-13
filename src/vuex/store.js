@@ -40,7 +40,7 @@ const store = createStore({
             state.result = 0;
             state.displayText = state.result.toString();
         },
-        CLEAR_OPERATOR_SET(state) {
+        CLEAR_OPERATORS_SET(state) {
             state.operatorsSet.clear();
         },
         CLEAR_NUMBER_LIST(state) {
@@ -77,8 +77,11 @@ const store = createStore({
         SET_OPERATOR_TO_LIST(state, paramOperator) {
             state.operatorsSet.add(paramOperator)
         },
-        PERFORM_MATH_OPERATION(state) {
+        PERFORM_BASIC_MATH_OPERATION(state) {
             state.result = mathFunctions[Array.from(state.operatorsSet).join("")](state.operandsList);
+        },
+        CALCULATE_SQUARE_ROOT(state) {
+            state.result = mathFunctions['√'](state.operandsList);
         }
     },
     actions:{
@@ -93,33 +96,44 @@ const store = createStore({
             commit('DETERMINE_STATUS_CALCULATOR', payload);
             commit('CLEAR_LISTS');
         },
-        performMathOperation({commit}, paramOperator) {
+        performBasicMathOperation({commit}, paramOperator) {
 
             if (this.getters.isNumberListEmpty && this.state.operatorsSet.size === 0) return;
 
             commit('SET_OPERAND_TO_LIST');
-            if (this.state.operatorsSet.size < 1 || (this.state.operatorsSet.size === 1 && paramOperator === '%')) {
+            if (this.state.operatorsSet.size < 1) {
                 commit('SET_OPERATOR_TO_LIST', paramOperator);
             }
 
             if (this.getters.isSimpleExpressionValid) {
                 console.log('Calculate');
-                commit('PERFORM_MATH_OPERATION');
+                commit('PERFORM_BASIC_MATH_OPERATION');
                 commit('DISPLAY_RESULT');
                 commit('SET_RESULT_AS_FIRST_OPERAND');
-                commit('CLEAR_OPERATOR_SET');
+                commit('CLEAR_OPERATORS_SET');
                 commit('SET_OPERATOR_TO_LIST', paramOperator);
             }
             commit('CLEAR_NUMBER_LIST');
         },
+        performCalculationByPercentage({commit}) {
+            commit('CALCULATE_RESULT_BY_PERCENTAGE');
+            // Work in progress...
+        },
+        performSquareRootCalculation({commit}){
+            commit('SET_OPERAND_TO_LIST')
+            commit('CALCULATE_SQUARE_ROOT');
+            commit('DISPLAY_RESULT');
+            commit('SET_RESULT_TO_NUMBERLIST');
+            commit('CLEAR_OPERANDS_LIST');
+        },
         equalize({commit}) {
             commit('SET_OPERAND_TO_LIST');
             if (this.getters.isSimpleExpressionValid) {
-                commit('PERFORM_MATH_OPERATION');
+                commit('PERFORM_BASIC_MATH_OPERATION');
                 commit('DISPLAY_RESULT');
                 commit('SET_RESULT_TO_NUMBERLIST');
                 commit('CLEAR_OPERANDS_LIST');
-                commit('CLEAR_OPERATOR');
+                commit('CLEAR_OPERATORS_SET');
             }
         }
     }

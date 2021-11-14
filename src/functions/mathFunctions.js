@@ -1,13 +1,13 @@
 export const mathFunctions = {
     '+': function (paramOperandsList) {
 
-        let tmp_result = 0;
+        let result = 0;
 
         paramOperandsList.forEach(operand => {
-            tmp_result += parseFloat(operand);
+            result += parseFloat(operand);
         });
 
-        return tmp_result;
+        return result;
     },
     '-': function (paramOperandsList) {
         return paramOperandsList[0] - paramOperandsList[1];
@@ -18,14 +18,13 @@ export const mathFunctions = {
     '÷': function (paramOperandsList) {
         return paramOperandsList[0] / paramOperandsList[1];
     },
-    '+%': function (paramOperandsList) {
-        return paramOperandsList[0] * (1.00 + (paramOperandsList[1] / 100));
-    },
-    '-%': function (paramOperandsList) {
-        return paramOperandsList[0] * ((100 - paramOperandsList[1]) / 100);
+    '%': function (paramOperandsList, paramOperatorsSet) {
+        let result = (paramOperatorsSet.has('+')) ? 
+                    paramOperandsList[0] * (1.00 + (paramOperandsList[1] / 100)) : 
+                    paramOperandsList[0] * ((100 - paramOperandsList[1]) / 100);
+        return result;
     },
     '√': function (paramOperand) {
-        console.log(paramOperand);
         return Math.sqrt(paramOperand);
     }
 };

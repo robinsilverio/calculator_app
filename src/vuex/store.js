@@ -16,16 +16,11 @@ const store = createStore({
         getButtons: state => state.buttons,
         isNumberListEmpty: state => state.numberList.length === 0,
         isSimpleExpressionValid: (state, getters) => {
-            return state.operandsList.length === 2 && getters.isBasicMathOperationChosenByUser ||
-                   state.operandsList.length === 1 && getters.isSquareRootOperationChosenByUser
+            return state.operandsList.length === 2 && getters.isBasicMathOperationChosenByUser
         },
         isBasicMathOperationChosenByUser: state => {
-            let basicOperatorsList = ['+', '-', 'x', '÷', '%'];
-            return Array.from(state.operatorsSet).every(operator => basicOperatorsList.includes(operator));
-        },
-        isSquareRootOperationChosenByUser: state => {
-            const SQUARE_ROOT_OPERATOR = '√';
-            return SQUARE_ROOT_OPERATOR === Array.from(state.operatorsSet)[0];
+            let basicOperatorsList = ['+', '-', 'x', '÷'];
+            return basicOperatorsList.includes(Array.from(state.operatorsSet)[0]);
         }
     },
     mutations: {
@@ -80,13 +75,16 @@ const store = createStore({
         PERFORM_BASIC_MATH_OPERATION(state) {
             state.result = mathFunctions[Array.from(state.operatorsSet).join("")](state.operandsList);
         },
+        CALCULATE_RESULT_BY_PERCENTAGE(state) {
+            state.result = mathFunctions['%'](state.operandsList, state.operatorsSet);
+        },
         CALCULATE_SQUARE_ROOT(state) {
             state.result = mathFunctions['√'](state.operandsList);
         }
     },
     actions:{
         addNumberToNumberList({commit}, payload) {
-            commit('PRINT_NUMBER_IN_SCREEN', payload)
+            commit('PRINT_NUMBER_IN_SCREEN', payload);
         },
         clearResult({commit}) {
             commit('CLEAR_RESULT');
@@ -116,8 +114,11 @@ const store = createStore({
             commit('CLEAR_NUMBER_LIST');
         },
         performCalculationByPercentage({commit}) {
+            commit('SET_OPERAND_TO_LIST');
             commit('CALCULATE_RESULT_BY_PERCENTAGE');
-            // Work in progress...
+            commit('DISPLAY_RESULT');
+            commit('SET_RESULT_TO_NUMBERLIST');
+            commit('CLEAR_OPERANDS_LIST');
         },
         performSquareRootCalculation({commit}){
             commit('SET_OPERAND_TO_LIST')

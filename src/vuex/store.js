@@ -115,9 +115,11 @@ const store = createStore({
         },
         performCalculationByPercentage({commit}) {
             commit('SET_OPERAND_TO_LIST');
-            commit('CALCULATE_RESULT_BY_PERCENTAGE');
-            commit('DISPLAY_RESULT');
-            commit('SET_RESULT_TO_NUMBERLIST');
+            if (this.getters.isSimpleExpressionValid) {
+                commit('CALCULATE_RESULT_BY_PERCENTAGE');
+                commit('DISPLAY_RESULT');
+                commit('SET_RESULT_TO_NUMBERLIST');
+            }
             commit('CLEAR_OPERANDS_LIST');
         },
         performSquareRootCalculation({commit}){

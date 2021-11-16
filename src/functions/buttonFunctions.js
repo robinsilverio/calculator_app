@@ -17,8 +17,14 @@ export const buttonFunctions = {
             store.dispatch('toggleCalculatorStatus', false)
         }    
     },
-    'btn_regular btn_operation': function (paramOperationSign) {
-        store.dispatch('performMathOperation', paramOperationSign);
+    'btn_regular btn_basic_operation': function (paramOperationSign) {
+        store.dispatch('performBasicMathOperation', paramOperationSign);
+    },
+    'btn_regular btn_operation_percentage': function () {
+        store.dispatch('performCalculationByPercentage');
+    },
+    'btn_regular btn_operation_square_root': function () {
+        store.dispatch('performSquareRootCalculation');
     },
     'btn_regular op_equals': function () {
         store.dispatch('equalize');

@@ -20,12 +20,12 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_basic_operation',
         text: '÷',
         disabled: false
     }, 
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_operation_percentage',
         text: '%',
         disabled: false
     }, 
@@ -45,12 +45,12 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_basic_operation',
         text: 'x',
         disabled: false
     },
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_operation_square_root',
         text: '√',
         disabled: false
     }, 
@@ -70,7 +70,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_basic_operation',
         text: '-',
         disabled: false
     },
@@ -95,7 +95,7 @@ export const buttonData = [
         disabled: false
     }, 
     {
-        className: 'btn_regular btn_operation',
+        className: 'btn_regular btn_basic_operation',
         text: '+',
         disabled: false
     },

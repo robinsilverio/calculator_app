@@ -38,4 +38,18 @@ export default {
     padding: 5px;
   }
 
+  @media screen and (max-width: 768px) {
+    .calculator {
+        width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 426px) {
+    .calculator {
+        width: 90%;
+    }
+  }
+
+
+
 </style>

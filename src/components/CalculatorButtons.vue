@@ -60,4 +60,10 @@ export default {
     padding: 15px;
     color: #FFF;
 }
+
+@media screen and (max-width: 376px) {
+    .calculator_buttons button {
+        flex: 0 19%;
+    }
+}
 </style>
